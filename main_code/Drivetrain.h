@@ -17,5 +17,3 @@ class Drivetrain {
 
 
 #endif
-
-C:\Users\chris\OneDrive\Documents\Arduino\ENES100 OTV\main_code\Drivetrain.cpp

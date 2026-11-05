@@ -9,8 +9,8 @@ const int LEFT_IN2 = 29;
 // left back
 const int LEFT_IN3 = 31;
 const int LEFT_IN4 = 33;
-const int RIGHT_ENA = 3;
-const int RIGHT_ENB = 2;
+const int RIGHT_ENA = 2;
+const int RIGHT_ENB = 3;
 // right front
 const int RIGHT_IN1 = 41;
 const int RIGHT_IN2 = 37;
@@ -68,9 +68,9 @@ void Drivetrain::right(float pow) {
   digitalWrite(RIGHT_IN4, LOW);
   int actual_pow = (int) (pow * 255);
   analogWrite(RIGHT_ENA, actual_pow);
-  analogWrite(RIGHT_ENB, actual_pow);
-  analogWrite(LEFT_ENA, actual_pow);
-  analogWrite(LEFT_ENB, actual_pow);
+  analogWrite(RIGHT_ENB, actual_pow * 2);
+  analogWrite(LEFT_ENA, actual_pow * 1.1);
+  analogWrite(LEFT_ENB, actual_pow * 1.1);
 }
 
 void Drivetrain::left(float pow) {
@@ -88,9 +88,9 @@ void Drivetrain::left(float pow) {
   digitalWrite(RIGHT_IN4, HIGH);
   int actual_pow = (int) (pow * 255);
   analogWrite(RIGHT_ENA, actual_pow);
-  analogWrite(RIGHT_ENB, actual_pow);
-  analogWrite(LEFT_ENA, actual_pow);
-  analogWrite(LEFT_ENB, actual_pow);
+  analogWrite(RIGHT_ENB, actual_pow * 2);
+  analogWrite(LEFT_ENA, actual_pow * 1.1);
+  analogWrite(LEFT_ENB, actual_pow * 1.1);
 }
 
 void Drivetrain::backwards(float pow) {
@@ -100,7 +100,7 @@ void Drivetrain::backwards(float pow) {
   }
   int actual_pow = (int) (pow * 255);
   analogWrite(RIGHT_ENA, actual_pow);
-  analogWrite(RIGHT_ENB, actual_pow);
+  analogWrite(RIGHT_ENB, actual_pow * 2);
   analogWrite(LEFT_ENA, actual_pow);
   analogWrite(LEFT_ENB, actual_pow);
   digitalWrite(LEFT_IN1, LOW);
@@ -129,8 +129,8 @@ void Drivetrain::rotate_right(float pow) {
   int actual_pow = (int) (pow * 255);
   analogWrite(RIGHT_ENA, actual_pow);
   analogWrite(RIGHT_ENB, actual_pow);
-  analogWrite(LEFT_ENA, actual_pow);
-  analogWrite(LEFT_ENB, actual_pow);
+  analogWrite(LEFT_ENA, actual_pow * 1.1);
+  analogWrite(LEFT_ENB, actual_pow * 1.1);
 }
 
 void Drivetrain::rotate_left(float pow) {
@@ -148,7 +148,7 @@ void Drivetrain::rotate_left(float pow) {
   digitalWrite(RIGHT_IN4, LOW);
   int actual_pow = (int) (pow * 255);
   analogWrite(RIGHT_ENA, actual_pow);
-  analogWrite(RIGHT_ENB, actual_pow);
+  analogWrite(RIGHT_ENB, actual_pow * 2);
   analogWrite(LEFT_ENA, actual_pow);
   analogWrite(LEFT_ENB, actual_pow);
 }
