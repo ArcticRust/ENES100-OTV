@@ -79,7 +79,7 @@ void drive_to_x(float target_x) { // should account for drift at some point
     x_pos = Enes100.getX();
   }
 
-  while (abs(target_x - x_pos) > MAX_X_ERROR * 5) {
+  while (abs(target_x - x_pos) > MAX_X_ERROR) {
     x_pos = Enes100.getX();
     if (abs(theta) < MAX_THETA_ERROR) {
     drivetrain.forwards(FORWARD_POW * positive);
@@ -265,8 +265,12 @@ bool get_and_send_water_depth() {
 }
 
 void get_and_send_pollutant_status() {
-  if (Enes100.MLGetPrediction(1) == 1) Enes100.mission(WATER_TYPE, FRESH_POLLUTED);
+  int result = Enes100.MLGetPrediction(1);
+  Enes100.println("Model predicts: " + String(result));
+  
+  if (result == 1) Enes100.mission(WATER_TYPE, FRESH_POLLUTED);
   else Enes100.mission(WATER_TYPE, FRESH_UNPOLLUTED);
+  
 }
 
 float get_navigation_y1(float measure_1, float measure_2, float measure_3) {
@@ -304,7 +308,10 @@ float get_navigation_y2(float measure_1, float measure_2, float measure_3) {
 }
 
 void setup() {
-  //Enes100.begin("TTT", WATER, 60, 1120, WIFI_TX, WIFI_RX);
+   // Team Name, Mission Type, Marker ID, Room Number, Wifi Module TX Pin, Wifi Module RX Pin
+   // Connects vision system to the OTV
+  Enes100.begin("TrashTrappingTurtle", WATER, 88, 1120, WIFI_TX, WIFI_RX);
+  Enes100.println("Connected...");
 
   drivetrain.setup();
 
@@ -318,6 +325,7 @@ void setup() {
   pinMode(SIDE_ULTRASONIC_TRIG, OUTPUT);
   pinMode(FRONT_ULTRASONIC_TRIG, OUTPUT);
   pinMode(DEPTH_PIN, INPUT);  
+
 }
 
 void loop() {
@@ -325,4 +333,5 @@ void loop() {
   delay(5000);
   drivetrain.rotate_left(ROTATE_POW);
   delay(5000);
+
 }
